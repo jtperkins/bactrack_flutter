@@ -23,7 +23,7 @@ Add to your `pubspec.yaml`:
 dependencies:
   bactrack_flutter:
     git:
-      url: https://github.com/UMJeffreyRosczyk/bactrack_flutter.git
+      url: https://github.com/jtperkins/bactrack_flutter.git
 ```
 
 ### 3. Platform Setup

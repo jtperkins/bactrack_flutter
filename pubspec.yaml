@@ -1,9 +1,9 @@
 name: bactrack_flutter
 description: "A Flutter plugin for BACtrack Bluetooth breathalyzers. Wraps the official iOS and Android SDKs."
 version: 0.1.0
-homepage: https://github.com/UMJeffreyRosczyk/bactrack_flutter
-repository: https://github.com/UMJeffreyRosczyk/bactrack_flutter
-issue_tracker: https://github.com/UMJeffreyRosczyk/bactrack_flutter/issues
+homepage: https://github.com/jtperkins/bactrack_flutter
+repository: https://github.com/jtperkins/bactrack_flutter
+issue_tracker: https://github.com/jtperkins/bactrack_flutter/issues
 
 environment:
   sdk: ^3.8.1

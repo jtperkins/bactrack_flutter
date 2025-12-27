@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 A Flutter plugin that wraps the official BACtrack SDK for iOS and Android.
 Enables connecting to BACtrack Bluetooth breathalyzers and collecting BAC readings.
                        DESC
-  s.homepage         = 'https://github.com/wellcentiv/bactrack_flutter'
+  s.homepage         = 'https://github.com/jtperkins/bactrack_flutter'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Wellcentiv' => 'dev@wellcentiv.com' }
   s.source           = { :path => '.' }
