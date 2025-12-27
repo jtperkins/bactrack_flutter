@@ -158,6 +158,50 @@ await bactrack.disconnect();
 | `result` | BAC result ready (message = BAC value) |
 | `error` | An error occurred |
 
+## Updating the Native SDKs
+
+This plugin vendors the official BACtrack SDKs. When BACtrack releases a new SDK version, follow these steps to update:
+
+### iOS SDK Update
+
+1. Download the latest SDK from [BACtrack's iOS SDK repo](https://github.com/BACtrack/breathalyzer-sdk-ios)
+
+2. Replace the vendored framework:
+   ```bash
+   rm -rf ios/Frameworks/BreathalyzerSDK.xcframework
+   cp -R /path/to/new/BreathalyzerSDK.xcframework ios/Frameworks/
+   ```
+
+3. Check for API changes in the header file:
+   ```bash
+   cat ios/Frameworks/BreathalyzerSDK.xcframework/ios-arm64/Headers/BACtrack.h
+   ```
+
+4. Update `ios/Classes/BactrackFlutterPlugin.swift` if there are new methods or changed signatures
+
+### Android SDK Update
+
+1. Check for the latest version at [BACtrack's Android SDK repo](https://github.com/BACtrack/breathalyzer-sdk-android)
+
+2. Update the version in `android/build.gradle`:
+   ```gradle
+   implementation 'com.github.nickneedsaname:BACtrackSDKV2:X.X.X'
+   ```
+
+3. Update `android/src/main/kotlin/.../BactrackFlutterPlugin.kt` if there are API changes
+
+### After Updating
+
+1. Update the version in `pubspec.yaml`
+2. Document changes in `CHANGELOG.md`
+3. Run tests: `flutter test`
+4. Commit and push:
+   ```bash
+   git add -A
+   git commit -m "Update BACtrack SDK to version X.X"
+   git push
+   ```
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) file.
