@@ -10,11 +10,13 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-import BACtrackAPI.API.BACtrackAPI
-import BACtrackAPI.API.BACtrackAPICallbacks
-import BACtrackAPI.Exceptions.BluetoothLENotSupportedException
-import BACtrackAPI.Exceptions.BluetoothNotEnabledException
-import BACtrackAPI.Exceptions.LocationServicesNotEnabledException
+import BreathalyzerSDK.API.BACtrackAPI
+import BreathalyzerSDK.API.BACtrackAPICallbacks
+import BreathalyzerSDK.Constants.BACTrackDeviceType
+import BreathalyzerSDK.Constants.BACtrackUnit
+import BreathalyzerSDK.Exceptions.BluetoothLENotSupportedException
+import BreathalyzerSDK.Exceptions.BluetoothNotEnabledException
+import BreathalyzerSDK.Exceptions.LocationServicesNotEnabledException
 
 /** BactrackFlutterPlugin */
 class BactrackFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, EventChannel.StreamHandler {
@@ -160,8 +162,8 @@ class BactrackFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, E
             sendEvent("apiKeyAuthorized")
         }
 
-        override fun BACtrackConnected(device: BACtrackAPI.BACtrackDevice?) {
-            sendEvent("connected", device?.toString())
+        override fun BACtrackConnected(deviceType: BACTrackDeviceType?) {
+            sendEvent("connected", deviceType?.toString())
         }
 
         override fun BACtrackDidConnect(message: String?) {
@@ -188,8 +190,8 @@ class BactrackFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, E
             sendEvent("start")
         }
 
-        override fun BACtrackBlow() {
-            sendEvent("blow")
+        override fun BACtrackBlow(blowProgress: Float) {
+            sendEvent("blow", blowProgress.toString())
         }
 
         override fun BACtrackAnalyzing() {
@@ -224,12 +226,12 @@ class BactrackFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, E
             sendEvent("error", "Error code: $errorCode")
         }
 
-        override fun BACtrackUnits(units: BACtrackAPI.BACtrackUnit?) {
+        override fun BACtrackUnits(units: BACtrackUnit?) {
             val unitsString = when (units) {
-                BACtrackAPI.BACtrackUnit.BACTrackUnitBACPct -> "BAC%"
-                BACtrackAPI.BACtrackUnit.BACTrackUnitPermille -> "permille"
-                BACtrackAPI.BACtrackUnit.BACTrackUnitMgL -> "mg/L"
-                BACtrackAPI.BACtrackUnit.BACTrackUnitMgDL -> "mg/dL"
+                BACtrackUnit.BACTrackUnitBACPct -> "BAC%"
+                BACtrackUnit.BACTrackUnitPermille -> "permille"
+                BACtrackUnit.BACTrackUnitMgL -> "mg/L"
+                BACtrackUnit.BACTrackUnitMgDL -> "mg/dL"
                 else -> "unknown"
             }
             sendEvent("units", unitsString)
