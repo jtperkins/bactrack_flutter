@@ -1,6 +1,8 @@
 package com.wellcentiv.bactrack_flutter
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -25,6 +27,7 @@ class BactrackFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, E
     private var eventSink: EventChannel.EventSink? = null
     private var context: Context? = null
     private var bactrackAPI: BACtrackAPI? = null
+    private val mainHandler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
@@ -94,6 +97,9 @@ class BactrackFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, E
         } catch (e: LocationServicesNotEnabledException) {
             sendEvent("error", "Location services not enabled")
             result.success(false)
+        } catch (e: Exception) {
+            sendEvent("error", e.message ?: "Unknown error")
+            result.success(false)
         }
     }
 
@@ -148,7 +154,10 @@ class BactrackFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, E
     private fun sendEvent(state: String, message: String? = null) {
         val event = mutableMapOf<String, Any>("state" to state)
         message?.let { event["message"] = it }
-        eventSink?.success(event)
+        // Must dispatch to main thread for Flutter platform channel
+        mainHandler.post {
+            eventSink?.success(event)
+        }
     }
 
     // BACtrack Callbacks
