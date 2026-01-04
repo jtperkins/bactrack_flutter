@@ -228,10 +228,11 @@ class BactrackFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, E
 
         override fun BACtrackUnits(units: BACtrackUnit?) {
             val unitsString = when (units) {
-                BACtrackUnit.BACTrackUnitBACPct -> "BAC%"
-                BACtrackUnit.BACTrackUnitPermille -> "permille"
-                BACtrackUnit.BACTrackUnitMgL -> "mg/L"
-                BACtrackUnit.BACTrackUnitMgDL -> "mg/dL"
+                BACtrackUnit.BACtrackUnit_bac -> "BAC%"
+                BACtrackUnit.BACtrackUnit_permille -> "permille"
+                BACtrackUnit.BACtrackUnit_mgL -> "mg/L"
+                BACtrackUnit.BACtrackUnit_mg -> "mg/dL"
+                BACtrackUnit.BACtrackUnit_permilleByMass -> "permille"
                 else -> "unknown"
             }
             sendEvent("units", unitsString)
