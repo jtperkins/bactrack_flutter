@@ -22,6 +22,10 @@ import BreathalyzerSDK.Exceptions.LocationServicesNotEnabledException
 
 /** BactrackFlutterPlugin */
 class BactrackFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, EventChannel.StreamHandler {
+    companion object {
+        private const val TAG = "BactrackFlutter"
+    }
+
     private lateinit var channel: MethodChannel
     private lateinit var eventChannel: EventChannel
     private var eventSink: EventChannel.EventSink? = null
